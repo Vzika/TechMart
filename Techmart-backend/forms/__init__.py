@@ -2,17 +2,24 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField
 from wtforms.validators import DataRequired, Length, Email
 
-# Example of a login form
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    password = PasswordField('Password', validators=[DataRequired()])
-    submit = SubmitField('Login')
+from .user import UserForm
+from .product import ProductForm
+from .category import CategoryForm
+from .order import OrderForm
+from .review import ReviewForm
+from .cart import CartForm
+from .wishlist import WishlistForm
+from .payment import PaymentForm
 
-# Example of a registration form
-class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
-    submit = SubmitField('Register')
+# Optionally, you can create a list of all forms for easier access
+__all__ = [
+    'UserForm',
+    'ProductForm',
+    'CategoryForm',
+    'OrderForm',
+    'ReviewForm',
+    'CartForm',
+    'WishlistForm',
+    'PaymentForm',
+]
 
