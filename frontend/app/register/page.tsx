@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -29,6 +29,7 @@ export default function Registration() {
     } = useForm();
     const [showPassword, setShowPassword] = useState(false);
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [loading, setLoading] = useState(false);
 
     const getPasswordStrength = (password: string) => {
@@ -121,13 +122,12 @@ export default function Registration() {
                                 )}
                             </div>
                             <div className='space-y-2'>
-                                <Label htmlFor='password'>Password</Label>
+                                <Label htmlFor='password'>Password {password}</Label>
                                 <div className='relative'>
                                     <Input
                                         id='password'
                                         type={showPassword ? "text" : "password"}
                                         placeholder='Enter your password'
-                                        value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         {...register("password", {
                                             required: "Password is required",
@@ -174,15 +174,17 @@ export default function Registration() {
                                 </div>
                             )}
                             <div className='space-y-2'>
-                                <Label htmlFor='confirmPassword'>Confirm Password</Label>
+                                <Label htmlFor='confirmPassword'>Confirm Password {confirmPassword}</Label>
                                 <Input
                                     id='confirmPassword'
                                     type='password'
                                     placeholder='Confirm your password'
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
                                     {...register("confirmPassword", {
                                         required: "Confirm Password is required",
-                                        validate: (value) =>
-                                            value === password || "Passwords do not match",
+                                        validate: (value) => {
+                                            value === password || "Passwords do not match"
+                                        }
                                     })}
                                 />
                                 {errors.confirmPassword && (
