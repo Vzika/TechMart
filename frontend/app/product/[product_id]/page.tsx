@@ -22,11 +22,6 @@ export default async function SingleItemView() {
     const { product_id } = useParams();
     const [currentImage, setCurrentImage] = useState(0)
     const [quantity, setQuantity] = useState(1)
-    let product: Product = {};
-    await axios.get(`${API_URI}/product/${product_id}`)
-        .then((res: any) => {
-            product = res.data
-        })
     const images = [
         "https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=400&width=600&text=Product Image 1",
         "https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=400&width=600&text=Product Image 2",
@@ -42,6 +37,20 @@ export default async function SingleItemView() {
         setCurrentImage((prev) => (prev - 1 + images.length) % images.length)
     }
 
+    let products: Product[] = [];
+    await axios.get(`${API_URI}/product`).then((res) => {
+        products = res.data.splice(0, 4);
+    })
+
+    let product: Product = {
+        name: 'undefined',
+        description: 'undefined',
+        id: 999,
+        price: 999
+    };
+    await axios.get(`${API_URI}/product/${product_id}`).then((res) => {
+        product = res.data
+    });
     return (
         <>
             <Navbar />
@@ -218,17 +227,17 @@ export default async function SingleItemView() {
                 <section className="mt-12">
                     <h2 className="text-2xl font-bold mb-6">Related Products</h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                        {[...Array(4)].map((_, index) => (
+                        {products.map((product, index) => (
                             <div key={index} className="border rounded-lg overflow-hidden">
                                 <img
-                                    src={`/placeholder.svg?height=200&width=300&text=Related Product ${index + 1}`}
-                                    alt={`Related Product ${index + 1}`}
+                                    src={`https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=200&width=300&text=Related Product ${index + 1}`}
+                                    alt={product}
                                     className="w-full h-48 object-cover"
                                 />
                                 <div className="p-4">
-                                    <h3 className="font-semibold mb-2">Related Product {index + 1}</h3>
-                                    <p className="text-gray-600 mb-2">Brief description of the related product.</p>
-                                    <p className="font-bold">$999.99</p>
+                                    <h3 className="font-semibold mb-2">{product.name}</h3>
+                                    <p className="text-gray-600 mb-2">{product.description}.</p>
+                                    <p className="font-bold">${product.price}</p>
                                     <Button variant="outline" className="w-full mt-2">View Details</Button>
                                 </div>
                             </div>
