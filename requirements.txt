@@ -6,3 +6,4 @@ requests==2.31.0
 SQLAlchemy==2.0.30
 pymysql==1.1.1
 python-dotenv==1.0.1
+Flask-Cors==5.0.0
