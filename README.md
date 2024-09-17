@@ -22,6 +22,12 @@ curl -X POST http://127.0.0.1:5000/add_products \
     "price": 1500
 }'
 
+
+to get products
+
+curl -X GET http://127.0.0.1:5000/product
+
+
 how to add comment:
 curl -X POST http://127.0.0.1:5000/add_comment -H "Content-Type: application/json" -d '{
     "product_id": 2,
