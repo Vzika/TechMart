@@ -1,12 +1,14 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_cors import CORS
 
 db = SQLAlchemy()
 
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
     app.config['SECRET_KEY'] = 'zika1997'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql8731929:qiwYvQAVYT@sql8.freemysqlhosting.net/sql8731929'
 

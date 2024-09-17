@@ -113,10 +113,10 @@ curl -X POST http://127.0.0.1:5000/add_comment \
 
 ### User Signup
 
-To create a new user account, send a POST request to `/register` with the user's details.
+To create a new user account, send a POST request to `/signUp` with the user's details.
 
 ```bash
-curl -X POST http://127.0.0.1:5000/register \
+curl -X POST http://127.0.0.1:5000/signUp \
 -H "Content-Type: application/json" \
 -d '{
   "username": "zika",
