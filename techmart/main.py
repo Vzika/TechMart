@@ -5,7 +5,7 @@ Functions:
 - create_app(): Initializes the Flask application and database.
 """
 
-from Techmart import create_app, db
+from . import create_app, db
 
 app = create_app()
 
