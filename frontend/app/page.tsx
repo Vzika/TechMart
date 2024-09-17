@@ -10,42 +10,58 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from 'next/link';
 import Navbar from "@/components/ui/custom/navbar";
+import axios from 'axios';
 
-export default function TechMart() {
+const API_URI = `http://127.0.0.1:5000`;
+
+interface Product {
+  description: string;
+  id: number;
+  name: string;
+  price: number;
+}
+
+export default async function TechMart() {
+  let products: Product[] = [];
+  await axios.get(`${API_URI}/product`).then((res) => {
+    products = res.data;
+  })
   return (
     <div className='flex flex-col min-h-screen font-poppins'>
       <Navbar />
       <main className='flex-grow container mx-auto px-4 py-8'>
         <h2 className='text-3xl font-bold mb-6'>Featured Products</h2>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-          {[...Array(8)].map((_, index) => (
-            <div
-              key={index}
-              className='bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105'>
-              <img
-                src={`https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=200&width=300&text=Product ${index + 1
-                  }`}
-                alt={`Product ${index + 1}`}
-                className='w-full h-48 object-cover'
-              />
-              <div className='p-4'>
-                <h3 className='text-lg font-semibold mb-2 text-gray-950'>
-                  Product {index + 1}
-                </h3>
-                <p className='text-gray-600 mb-2'>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                </p>
-                <div className='flex justify-between items-center'>
-                  <span className='text-primary font-bold'>
-                    ${(Math.random() * 1000).toFixed(2)}
-                  </span>
-                  <Button size='sm'>Add to Cart</Button>
+          {products.map((product, index) => (
+            <Link href={`/product/${product.id}`}>
+              <div
+                key={index}
+                className='bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105'>
+                <img
+                  src={`https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=200&width=300&text=Product ${index + 1
+                    }`}
+                  alt={`${product.name}`}
+                  className='w-full h-48 object-cover'
+                />
+                <div className='p-4'>
+                  <h3 className='text-lg font-semibold mb-2 text-gray-950'>
+                    {product.name}
+                  </h3>
+                  <p className='text-gray-600 mb-2'>
+                    {product.description}
+                  </p>
+                  <div className='flex justify-between items-center'>
+                    <span className='text-primary font-bold'>
+                      ${product.price}
+                    </span>
+                    <Button size='sm' onClick={(e) => e.stopPropagation()}>Add to Cart</Button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
-      </main>
+      </main >
 
       <footer className='bg-gray-100 mt-12'>
         <div className='container mx-auto px-4 py-8'>
@@ -110,6 +126,6 @@ export default function TechMart() {
           </div>
         </div>
       </footer>
-    </div>
+    </div >
   );
 }

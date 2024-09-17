@@ -27,7 +27,9 @@ const Navbar: any = () => {
                 </nav>
                 <div className='flex items-center space-x-4'>
                     <Search className='h-6 w-6 text-gray-400 cursor-pointer' />
-                    <ShoppingCart className='h-6 w-6 text-gray-400 cursor-pointer' />
+                    <Link href='/cart'>
+                        <ShoppingCart className='h-6 w-6 text-gray-400 cursor-pointer' />
+                    </Link>
                 </div>
             </div>
         </header>
