@@ -1,14 +1,16 @@
-from flask import Flask
+from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_cors import CORS
+import uuid
 
 db = SQLAlchemy()
 
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    CORS(app, supports_credentials=True, origins=[
+         'http://localhost:3000', 'https://frontend-ges3.onrender.com/'])
     app.config['SECRET_KEY'] = 'zika1997'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql8731929:qiwYvQAVYT@sql8.freemysqlhosting.net/sql8731929'
 
@@ -25,6 +27,10 @@ def create_app():
     login_manager.init_app(app)
 
     from .models import User
+
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        return jsonify({'message': 'Unauthorized access'}), 401
 
     @login_manager.user_loader
     def load_user(user_id):

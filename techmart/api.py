@@ -1,27 +1,51 @@
 from flask import jsonify, request, Blueprint
+from flask_login import login_required, login_user
 from . import db
-from .models import Product, Order, Review, Comment
+from .models import Product, Order, Review, Comment, User
+from functools import wraps
+
+
+def token_required(f):
+    @wraps(f)
+    def wrapper(*args, **kwargs):
+        token = request.headers.get('Authorization')
+        if not token:
+            return jsonify({'message': 'Token is missing'}), 403
+        token = token.split(' ')[1] if len(token.split(' ')[1]) > 1 else None
+        if not token:
+            return jsonify({'message': 'Token is missing'}), 403
+
+        user = User.query.filter_by(session_token=token).first()
+        if not user:
+            return jsonify({'message': 'Invalid token'}), 403
+        login_user(user)
+        return f(*args, **kwargs)
+
+    return wrapper
+
 
 bp = Blueprint('api', __name__)
+
 
 @bp.route('/product', methods=['GET'])
 def get_products():
     products = Product.query.all()
-    #print(products)
-    #[<Product id=1, name='Laptop', description='A powerful laptop', price=1000> ,
-    #<Product id=2, name='Mouse', description='A wireless mouse', price=25>]
-   
+    # print(products)
+    # [<Product id=1, name='Laptop', description='A powerful laptop', price=1000> ,
+    # <Product id=2, name='Mouse', description='A wireless mouse', price=25>]
+
     product_list = []
     for p in products:
         product_info_dict = {
             'id': p.id,
             'name': p.name,
-            'description': p.description, 
+            'description': p.description,
             'price': p.price
         }
         product_list.append(product_info_dict)
-    
+
     return jsonify(product_list)
+
 
 @bp.route('/product/<int:product_id>', methods=['GET'])
 def get_product(product_id):
@@ -37,30 +61,35 @@ def get_product(product_id):
             return jsonify(product_info)
     return jsonify({'error': 'Product not found'}), 404
 
-            
+
 @bp.route('/add_products', methods=['POST'])
+@token_required
+# @login_required  # only authenticated users can add products
 def add_products():
     user_input = request.get_json()
-    
+
     new_post = Product(
         name=user_input.get('name'),
         description=user_input.get('description'),
         price=user_input.get('price')
     )
-    
+
     db.session.add(new_post)
     db.session.commit()
-    
+
     new_post_info = {
         'id': new_post.id,
         'name': new_post.name,
         'description': new_post.description,
         'price': new_post.price
     }
-    
+
     return jsonify(new_post_info)
 
+
 @bp.route('/add_order', methods=['POST'])
+@token_required
+# @login_required  # only authenticated users can add orders
 def add_order():
     user_input = request.get_json()
     new_order = Order(
@@ -82,7 +111,10 @@ def add_order():
     }
     return jsonify(new_order_info)
 
+
 @bp.route('/orders', methods=['GET'])
+@token_required
+# @login_required  # only authenticated users can view orders
 def get_orders():
     orders = Order.query.all()
     orders_list = []
@@ -100,6 +132,8 @@ def get_orders():
 
 
 @bp.route('/add_review', methods=['POST'])
+@token_required
+# @login_required  # only authenticated users can add reviews
 def add_review():
     user_input = request.get_json()
     new_review = Review(
@@ -136,7 +170,10 @@ def get_product_reviews(product_id):
         reviews_list.append(review_info)
     return jsonify(reviews_list)
 
+
 @bp.route('/add_comment', methods=['POST'])
+@token_required
+# @login_required  # only authenticated users can add comments
 def add_comment():
     user_input = request.get_json()
     new_comment = Comment(
@@ -154,6 +191,7 @@ def add_comment():
         'comment_text': new_comment.comment_text
     }
     return jsonify(new_comment_info)
+
 
 @bp.route('/product/<int:product_id>/comments', methods=['GET'])
 def get_product_comments(product_id):
