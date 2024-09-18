@@ -9,9 +9,6 @@ bp = Blueprint('api', __name__)
 @bp.route('/product', methods=['GET'])
 def get_products():
     products = Product.query.all()
-    # print(products)
-    # [<Product id=1, name='Laptop', description='A powerful laptop', price=1000> ,
-    # <Product id=2, name='Mouse', description='A wireless mouse', price=25>]
 
     product_list = []
     for p in products:
