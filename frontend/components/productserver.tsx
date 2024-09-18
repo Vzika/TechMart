@@ -1,7 +1,7 @@
 import { FC } from "react";
 import axios from "axios";
 
-const API_URI = `http://127.0.0.1:5000`;
+const API_URI = `https://techmart-y7g6.onrender.com`;
 
 interface Product {
   id: number;
