@@ -74,8 +74,8 @@ const SingleProductPage = () => {
       alert("You must be logged in to place an order.");
       return;
     }
-
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+
     useEffect(() => {
       const fetchUser = async () => {
         const userData: User = await getUserData();
@@ -83,25 +83,33 @@ const SingleProductPage = () => {
       };
       fetchUser();
     }, []);
-    const order = {
-      customer_name: currentUser.username,
-      customer_email: currentUser.email,
-      product_id: Number(product_id),
-      quantity,
-    };
-    console.log(order);
-    try {
-      setLoadingOrder(true);
-      const makeOrder = await axios.post(`${API_URI}/add_order`, order, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("session_token")}`,
-        },
-      });
-      console.log(makeOrder);
-    } catch (error) {
-      console.log("An error occurred", error);
-    } finally {
-      setLoadingOrder(false);
+    if (currentUser) {
+      const order = {
+        customer_name: currentUser.username,
+        customer_email: currentUser.email,
+        product_id: Number(product_id),
+        quantity,
+      };
+
+      console.log(order);
+
+      try {
+        setLoadingOrder(true);
+        const makeOrder = await axios.post(`${API_URI}/add_order`, order, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("session_token")}`,
+          },
+        });
+        console.log(makeOrder);
+      } catch (error) {
+        console.log("An error occurred", error);
+      } finally {
+        setLoadingOrder(false);
+      }
+    } else {
+      // Handle the case where the user is not loaded yet
+      console.log('User not logged in');
+      alert("Cannot place an order because user is not logged in")
     }
   };
 
