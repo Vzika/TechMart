@@ -6,7 +6,7 @@ import Navbar from "@/components/ui/custom/navbar";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/custom/loader"; // Import the Loader component
 
-const API_URI = `http://127.0.0.1:5000`;
+const API_URI = `https://techmart-y7g6.onrender.com`;
 
 interface Product {
   id: number;
@@ -51,8 +51,8 @@ const AllProductsPage = () => {
         const productResponse = await axios.get(`${API_URI}/product`, {
           headers: sessionToken
             ? {
-                Authorization: `Bearer ${sessionToken}`,
-              }
+              Authorization: `Bearer ${sessionToken}`,
+            }
             : undefined, // No token if not authenticated
         });
         setProducts(productResponse.data);

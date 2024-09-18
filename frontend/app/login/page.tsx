@@ -22,7 +22,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 
 // Simplified API URI for testing purposes
-const API_URI = `http://127.0.0.1:5000`;
+const API_URI = `https://techmart-y7g6.onrender.com`;
 
 // Zod schema for form validation
 const schema = z.object({
@@ -111,9 +111,8 @@ export default function Login() {
                   type='email'
                   placeholder='john@example.com'
                   {...register("email")}
-                  className={`border ${
-                    errors.email ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`border ${errors.email ? "border-red-500" : "border-gray-300"
+                    }`}
                 />
                 {errors.email && (
                   <p className='text-red-500 text-sm'>{errors.email.message}</p>
@@ -129,9 +128,8 @@ export default function Login() {
                     type={showPassword ? "text" : "password"}
                     placeholder='Enter your password'
                     {...register("password")}
-                    className={`border ${
-                      errors.password ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className={`border ${errors.password ? "border-red-500" : "border-gray-300"
+                      }`}
                   />
                   {/* Show/Hide Password Button */}
                   <Button

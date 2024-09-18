@@ -20,7 +20,7 @@ import {
 import Link from "next/link";
 import Navbar from "@/components/ui/custom/navbar";
 
-const API_URI = `http://127.0.0.1:5000`;
+const API_URI = `https://techmart-y7g6.onrender.com`;
 
 const schema = z
   .object({
@@ -114,9 +114,8 @@ export default function Registration() {
                   id='name'
                   placeholder='John Doe'
                   {...register("name")}
-                  className={`border ${
-                    errors.name ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`border ${errors.name ? "border-red-500" : "border-gray-300"
+                    }`}
                 />
                 {errors.name && (
                   <span className='text-red-500 text-sm'>
@@ -131,9 +130,8 @@ export default function Registration() {
                   type='email'
                   placeholder='john@example.com'
                   {...register("email")}
-                  className={`border ${
-                    errors.email ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`border ${errors.email ? "border-red-500" : "border-gray-300"
+                    }`}
                 />
                 {errors.email && (
                   <span className='text-red-500 text-sm'>
@@ -151,9 +149,8 @@ export default function Registration() {
                     {...register("password", {
                       onChange: (e) => setPassword(e.target.value),
                     })}
-                    className={`border ${
-                      errors.password ? "border-red-500" : "border-gray-300"
-                    }`}
+                    className={`border ${errors.password ? "border-red-500" : "border-gray-300"
+                      }`}
                   />
                   <Button
                     type='button'
@@ -183,13 +180,12 @@ export default function Registration() {
                     <div
                       className={`h-full rounded-full ${passwordStrength.color}`}
                       style={{
-                        width: `${
-                          passwordStrength.label === "Weak"
+                        width: `${passwordStrength.label === "Weak"
                             ? 33
                             : passwordStrength.label === "Moderate"
-                            ? 66
-                            : 100
-                        }%`,
+                              ? 66
+                              : 100
+                          }%`,
                       }}></div>
                   </div>
                 </div>
@@ -201,11 +197,10 @@ export default function Registration() {
                   type='password'
                   placeholder='Confirm your password'
                   {...register("confirmPassword")}
-                  className={`border ${
-                    errors.confirmPassword
+                  className={`border ${errors.confirmPassword
                       ? "border-red-500"
                       : "border-gray-300"
-                  }`}
+                    }`}
                 />
                 {errors.confirmPassword && (
                   <span className='text-red-500 text-sm'>

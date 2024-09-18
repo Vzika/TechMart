@@ -20,7 +20,7 @@ import { Product } from "@/components/types";
 import axios from "axios";
 import Loader from "@/components/ui/custom/loader";
 
-const API_URI = `http://127.0.0.1:5000`;
+const API_URI = `https://techmart-y7g6.onrender.com`;
 
 const images = [
   "https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=400&width=600&text=Product Image 1",
@@ -141,9 +141,8 @@ const SingleProductPage = () => {
                 <button
                   key={index}
                   onClick={() => setCurrentImage(index)}
-                  className={`w-3 h-3 rounded-full ${
-                    index === currentImage ? "bg-primary" : "bg-gray-300"
-                  }`}
+                  className={`w-3 h-3 rounded-full ${index === currentImage ? "bg-primary" : "bg-gray-300"
+                    }`}
                 />
               ))}
             </div>
