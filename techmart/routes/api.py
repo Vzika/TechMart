@@ -1,12 +1,12 @@
 from flask import jsonify, request, Blueprint
 from flask_login import login_required
-from . import db
-from .models import Product, Order, Review, Comment
+from .. import db
+from ..models import Product, Order, Review, Comment
 
-bp = Blueprint('api', __name__)
+api = Blueprint('api', __name__)
 
 
-@bp.route('/product', methods=['GET'])
+@api.route('/product', methods=['GET'])
 def get_products():
     products = Product.query.all()
 
@@ -23,7 +23,7 @@ def get_products():
     return jsonify(product_list)
 
 
-@bp.route('/product/<int:product_id>', methods=['GET'])
+@api.route('/product/<int:product_id>', methods=['GET'])
 def get_product(product_id):
     products = Product.query.all()
     for product in products:
@@ -38,7 +38,7 @@ def get_product(product_id):
     return jsonify({'error': 'Product not found'}), 404
 
 
-@bp.route('/add_products', methods=['POST'])
+@api.route('/add_products', methods=['POST'])
 @login_required
 def add_products():
     user_input = request.get_json()
@@ -62,7 +62,7 @@ def add_products():
     return jsonify(new_post_info)
 
 
-@bp.route('/add_order', methods=['POST'])
+@api.route('/add_order', methods=['POST'])
 @login_required
 def add_order():
     user_input = request.get_json()
@@ -86,7 +86,7 @@ def add_order():
     return jsonify(new_order_info)
 
 
-@bp.route('/orders', methods=['GET'])
+@api.route('/orders', methods=['GET'])
 @login_required
 def get_orders():
     orders = Order.query.all()
@@ -104,7 +104,7 @@ def get_orders():
     return jsonify(orders_list)
 
 
-@bp.route('/add_review', methods=['POST'])
+@api.route('/add_review', methods=['POST'])
 @login_required
 def add_review():
     user_input = request.get_json()
@@ -127,7 +127,7 @@ def add_review():
     return jsonify(new_review_info)
 
 
-@bp.route('/product/<int:product_id>/reviews', methods=['GET'])
+@api.route('/product/<int:product_id>/reviews', methods=['GET'])
 @login_required
 def get_product_reviews(product_id):
     reviews = Review.query.filter_by(product_id=product_id).all()
@@ -144,7 +144,7 @@ def get_product_reviews(product_id):
     return jsonify(reviews_list)
 
 
-@bp.route('/add_comment', methods=['POST'])
+@api.route('/add_comment', methods=['POST'])
 @login_required
 def add_comment():
     user_input = request.get_json()
@@ -165,7 +165,7 @@ def add_comment():
     return jsonify(new_comment_info)
 
 
-@bp.route('/product/<int:product_id>/comments', methods=['GET'])
+@api.route('/product/<int:product_id>/comments', methods=['GET'])
 def get_product_comments(product_id):
     comments = Comment.query.filter_by(product_id=product_id).all()
     comments_list = []

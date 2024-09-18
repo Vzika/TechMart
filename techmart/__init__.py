@@ -14,10 +14,10 @@ def create_app():
 
     db.init_app(app)
 
-    from .api import bp
-    from .auth import auth
+    from .routes.api import api
+    from .routes.auth import auth
 
-    app.register_blueprint(bp, url_prefix='/')  # for route
+    app.register_blueprint(api, url_prefix='/')  # for route
     app.register_blueprint(auth, url_prefix='/')  # for auth
 
     login_manager = LoginManager()
