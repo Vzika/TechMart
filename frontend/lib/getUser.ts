@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URI = `http://127.0.0.1:5000`;
+const API_URI = `https://techmart-y7g6.onrender.com`;
 
 export const getUserData = async () => {
   if (typeof window !== "undefined") {
