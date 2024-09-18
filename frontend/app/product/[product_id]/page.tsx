@@ -19,6 +19,8 @@ import ProductServerComponent from "@/components/productserver";
 import { Product } from "@/components/types";
 import axios from "axios";
 import Loader from "@/components/ui/custom/loader";
+import { User } from "@/components/types";
+import { getUserData } from "@/lib/getUser";
 
 const API_URI = `https://techmart-y7g6.onrender.com`;
 
@@ -73,9 +75,17 @@ const SingleProductPage = () => {
       return;
     }
 
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    useEffect(() => {
+      const fetchUser = async () => {
+        const userData: User = await getUserData();
+        setCurrentUser(userData);
+      };
+      fetchUser();
+    }, []);
     const order = {
-      customer_name: "John Doe",
-      customer_email: "john.doe@example.com",
+      customer_name: currentUser.username,
+      customer_email: currentUser.email,
       product_id: Number(product_id),
       quantity,
     };
