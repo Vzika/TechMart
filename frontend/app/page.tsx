@@ -61,7 +61,8 @@ const AllProductsPage = () => {
         setProducts(productResponse.data);
       } catch (err) {
         console.error("Error fetching products:", err);
-        setError("Failed to load products.");
+        // setError("Failed to load products.");
+        sessionStorage.removeItem("session_token");
       }
     };
 
