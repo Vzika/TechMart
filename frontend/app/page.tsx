@@ -100,7 +100,7 @@ const AllProductsPage = () => {
           {products.map((product) => (
             <div key={product.id} className='border rounded-lg overflow-hidden'>
               <img
-                src={`https://example.com/product/${product.id}/image`} // Placeholder for product image
+                src={`https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=200&width=300&text=Product`} // Placeholder for product image
                 alt={product.name}
                 className='w-full h-40 object-cover'
               />
