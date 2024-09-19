@@ -1,6 +1,9 @@
+from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
-from . import db
+
+
+db = SQLAlchemy()
 
 
 # User Model
@@ -27,7 +30,6 @@ class Product(db.Model):
     name = db.Column(db.String(80), nullable=False)
     description = db.Column(db.Text, nullable=True)
     price = db.Column(db.Float, nullable=False)
-    quantity = db.Column(db.Integer, default=1)
     # orders = db.relationship('Order', backref='user',
     #                          lazy=True)  # incase of debugging
 
@@ -36,7 +38,7 @@ class Product(db.Model):
 
 
 # Order Model
-class Order(db.Model):
+class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, nullable=False)
     # product_id = db.Column(

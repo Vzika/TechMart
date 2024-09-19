@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-from models import db, User
+from techmart.models import db, User
 
 auth = Blueprint('auth', __name__)
 
@@ -15,7 +15,13 @@ def register():
         username=data['username'], email=data['email'], password_hash=hashed_password)
     db.session.add(new_user)
     db.session.commit()
-    return jsonify({"message": "User registered successfully!"}), 201
+    return jsonify({
+        "user": {
+            "id": new_user.id,
+            "username": new_user.username,
+            "email": new_user.email
+        },
+        "message": "User registered successfully!"}), 201
 
 
 # Login Route
@@ -25,7 +31,7 @@ def login():
     user = User.query.filter_by(username=data['username']).first()
     if user and check_password_hash(user.password_hash, data['password']):
         access_token = create_access_token(identity=user.id)
-        return jsonify(access_token=access_token), 200
+        return jsonify(message="Login Successful", access_token=access_token), 200
     return jsonify({"error": "Invalid credentials"}), 401
 
 
@@ -35,4 +41,4 @@ def login():
 def profile():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
-    return jsonify(username=user.username, email=user.email), 200
+    return jsonify(id=user_id, username=user.username, email=user.email), 200

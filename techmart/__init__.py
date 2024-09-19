@@ -1,18 +1,18 @@
-from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
+
 from flask import Flask, jsonify
 from flask import Flask
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
-from models import db
-from routes import register_routes
+from techmart.models import db
+from techmart.routes import register_routes
 
 
 def create_app():
     app = Flask(__name__)
 
     CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql8731929:qiwYvQAVYT@sql8.freemysqlhosting.net/sql8731929'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://user:user@localhost/techmart'
+    # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql8731929:qiwYvQAVYT@sql8.freemysqlhosting.net/sql8731929'
     app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'
 
     # Initialize extensions
