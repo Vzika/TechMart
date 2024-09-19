@@ -26,6 +26,10 @@ def create_app():
 
     from .models import User
 
+    @app.route('/', methods=['GET'])
+    def welcome():
+        return jsonify({'message': 'Welcome to TechMart'})
+
     @login_manager.unauthorized_handler
     def unauthorized():
         return jsonify({"error": "Unauthorized access. Please log in."}), 401
