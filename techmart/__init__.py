@@ -10,8 +10,7 @@ from techmart.routes import register_routes
 def create_app():
     app = Flask(__name__)
 
-    # CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
-    CORS(app)
+    CORS(app, supports_credentials=True, origins=["http://localhost:3000"])
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://user:user@localhost/techmart'
     # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://sql8731929:qiwYvQAVYT@sql8.freemysqlhosting.net/sql8731929'
     app.config['JWT_SECRET_KEY'] = 'your_jwt_secret_key'
