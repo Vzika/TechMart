@@ -6,21 +6,21 @@ product = Blueprint('product', __name__)
 
 
 # Get All Products
-@product.route('/', methods=['GET'])
+@product.route('/', methods=['GET'], strict_slashes=False)
 def get_products():
     products = Product.query.all()
     return jsonify([{"id": p.id, "name": p.name, "price": p.price, "description": p.description} for p in products]), 200
 
 
 # Get Product by ID
-@product.route('/<int:product_id>', methods=['GET'])
+@product.route('/<int:product_id>', methods=['GET'], strict_slashes=False)
 def get_product(product_id):
     product = Product.query.get_or_404(product_id)
     return jsonify({"id": product.id, "name": product.name, "price": product.price, "description": product.description}), 200
 
 
 # Add Product (Admin functionality)
-@product.route('/', methods=['POST'])
+@product.route('/', methods=['POST'], strict_slashes=False)
 @jwt_required()
 def add_product():
     data = request.get_json()
@@ -41,7 +41,7 @@ def add_product():
 
 # Not Needed At The Moment
 # Update Product (Admin functionality)
-# @product.route('/<int:product_id>', methods=['PUT'])
+# @product.route('/<int:product_id>', methods=['PUT'], strict_slashes=False)
 # @jwt_required()
 # def update_product(product_id):
 #     product = Product.query.get_or_404(product_id)
@@ -54,7 +54,7 @@ def add_product():
 
 
 # Delete Product (Admin functionality)
-@product.route('/<int:product_id>', methods=['DELETE'])
+@product.route('/<int:product_id>', methods=['DELETE'], strict_slashes=False)
 @jwt_required()
 def delete_product(product_id):
     product = Product.query.get_or_404(product_id)

@@ -6,7 +6,7 @@ order = Blueprint('order', __name__)
 
 # Not needed for now
 # Add items to cart (basic example, can be expanded to Cart model)
-# @order.route('/cart/add', methods=['POST'])
+# @order.route('/cart/add', methods=['POST'], strict_slashes=False)
 # @jwt_required()
 # def add_to_cart():
 #     # Logic for adding product to user's cart
@@ -14,7 +14,7 @@ order = Blueprint('order', __name__)
 
 
 # Get all orders for the logged-in user
-@order.route('/', methods=['GET', 'POST'])
+@order.route('/', methods=['GET', 'POST'], strict_slashes=False)
 @jwt_required()
 def get_orders():
     user_id = get_jwt_identity()
@@ -40,7 +40,7 @@ def get_orders():
 
 # Not needed for now
 # Checkout route (example, more logic needed)
-# @order.route('/checkout', methods=['POST'])
+# @order.route('/checkout', methods=['POST'], strict_slashes=False)
 # @jwt_required()
 # def checkout():
 #     # Logic for creating a new order from cart items

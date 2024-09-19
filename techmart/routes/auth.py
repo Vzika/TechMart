@@ -7,7 +7,7 @@ auth = Blueprint('auth', __name__)
 
 
 # Register Route
-@auth.route('/register', methods=['POST'])
+@auth.route('/register', methods=['POST'], strict_slashes=False)
 def register():
     data = request.get_json()
     hashed_password = generate_password_hash(data['password'])
@@ -25,10 +25,10 @@ def register():
 
 
 # Login Route
-@auth.route('/login', methods=['POST'])
+@auth.route('/login', methods=['POST'], strict_slashes=False)
 def login():
     data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
+    user = User.query.filter_by(email=data['email']).first()
     if user and check_password_hash(user.password_hash, data['password']):
         access_token = create_access_token(identity=user.id)
         return jsonify(message="Login Successful", access_token=access_token), 200
@@ -36,7 +36,7 @@ def login():
 
 
 # Protected User Profile Route
-@auth.route('/profile', methods=['GET'])
+@auth.route('/profile', methods=['GET'], strict_slashes=False)
 @jwt_required()
 def profile():
     user_id = get_jwt_identity()
