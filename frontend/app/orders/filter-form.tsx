@@ -56,7 +56,7 @@ export function FilterForm({
               <SelectValue placeholder='Select status' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value=''>All</SelectItem>
+              <SelectItem value='_'>All</SelectItem>
               <SelectItem value='pending'>Pending</SelectItem>
               <SelectItem value='processing'>Processing</SelectItem>
               <SelectItem value='shipped'>Shipped</SelectItem>

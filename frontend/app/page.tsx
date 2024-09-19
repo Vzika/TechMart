@@ -51,7 +51,7 @@ const AllProductsPage = () => {
     // Always fetch products, even without authentication
     const fetchProducts = async () => {
       try {
-        const productResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/products`, {
+        const productResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/products/`, {
           headers: sessionToken
             ? {
               Authorization: `Bearer ${sessionToken}`,

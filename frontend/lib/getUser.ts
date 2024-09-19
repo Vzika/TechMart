@@ -6,7 +6,7 @@ export const getUserData = async () => {
     const sessionToken = sessionStorage.getItem("session_token");
     if (sessionToken) {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/user`, {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/auth/profile`, {
           headers: {
             Authorization: `Bearer ${sessionToken}`,
           },

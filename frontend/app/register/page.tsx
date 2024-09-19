@@ -78,7 +78,7 @@ export default function Registration() {
       });
 
       // Check if the response was successful
-      if (response.status === 200) {
+      if (response.status === 201) {
         alert("Account created successfully!");
         window.location.href = "/login";
       } else {

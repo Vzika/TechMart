@@ -38,6 +38,7 @@ const SingleProductPage = () => {
   const [loadingOrder, setLoadingOrder] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % images.length);
@@ -65,8 +66,13 @@ const SingleProductPage = () => {
         setLoading(false);
       }
     };
-
     fetchData();
+
+    const fetchUser = async () => {
+      const userData: User = await getUserData();
+      setCurrentUser(userData);
+    };
+    fetchUser();
   }, [product_id]);
 
   const handlePlaceOrder = async () => {
@@ -75,20 +81,6 @@ const SingleProductPage = () => {
       return;
     }
 
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
-    useEffect(() => {
-      const fetchUser = async () => {
-        const userData: User = await getUserData();
-        setCurrentUser(userData);
-      };
-      fetchUser();
-    }, []);
-    // const order = {
-    //   customer_name: currentUser?.username || 'Guest',
-    //   customer_email: currentUser?.email || 'guest@mail.com',
-    //   product_id: Number(product_id),
-    //   quantity,
-    // };
     const order = {
       user_id: currentUser?.id || 0,
       product_id: Number(product_id),
