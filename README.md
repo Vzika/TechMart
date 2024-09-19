@@ -1,5 +1,7 @@
 # Webstack - Portfolio Project
 
+# Webstack - Portfolio Project
+
 This project is a simple e-commerce platform that allows customers to browse products, place orders, leave comments, and manage their accounts. The API offers endpoints for product management, order placement, user authentication, and comment functionality.
 
 ## Table of Contents
@@ -17,6 +19,7 @@ This project is a simple e-commerce platform that allows customers to browse pro
     -   [User Logout](#user-logout)
 -   [Usage](#usage)
 -   [License](#license)
+-   [Collaborators](#collaborators)
 
 ## Features
 
@@ -157,3 +160,9 @@ Feel free to modify the API according to your needs or add more features to the 
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Collaborators
+
+-   Martins Okanlawon: [Email: oyedelenewton@gmail.com](mailto:oyedelenewton@gmail.com), [GitHub: PrimotionStudio](https://github.com/PrimotionStudio)
+-   Isabella Akunekwu: [Email: akunekwuisabella@gmail.com](mailto:akunekwuisabella@gmail.com), [GitHub: bellacocho123](https://github.com/bellacocho123)
+-   Ndukauba Ngozi: [Email: ndukaubangozi@gmail.com](mailto:ndukaubangozi@gmail.com), [GitHub: Vzika](https://github.com/Vzika)
