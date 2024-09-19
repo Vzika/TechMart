@@ -20,7 +20,6 @@ import {
 import Link from "next/link";
 import Navbar from "@/components/ui/custom/navbar";
 
-const API_URI = `https://techmart-y7g6.onrender.com`;
 
 const schema = z
   .object({
@@ -72,7 +71,7 @@ export default function Registration() {
     try {
       console.log(data);
       // Send a POST request to your API
-      const response = await axios.post(`${API_URI}/signUp`, {
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URI}/auth/register`, {
         username: data.name,
         email: data.email,
         password: data.password,
@@ -181,10 +180,10 @@ export default function Registration() {
                       className={`h-full rounded-full ${passwordStrength.color}`}
                       style={{
                         width: `${passwordStrength.label === "Weak"
-                            ? 33
-                            : passwordStrength.label === "Moderate"
-                              ? 66
-                              : 100
+                          ? 33
+                          : passwordStrength.label === "Moderate"
+                            ? 66
+                            : 100
                           }%`,
                       }}></div>
                   </div>
@@ -198,8 +197,8 @@ export default function Registration() {
                   placeholder='Confirm your password'
                   {...register("confirmPassword")}
                   className={`border ${errors.confirmPassword
-                      ? "border-red-500"
-                      : "border-gray-300"
+                    ? "border-red-500"
+                    : "border-gray-300"
                     }`}
                 />
                 {errors.confirmPassword && (

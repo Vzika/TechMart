@@ -6,7 +6,6 @@ import Navbar from "@/components/ui/custom/navbar";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/ui/custom/loader"; // Import the Loader component
 
-const API_URI = `https://techmart-y7g6.onrender.com`;
 
 interface Product {
   id: number;
@@ -26,13 +25,13 @@ const AllProductsPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const sessionToken = localStorage.getItem("session_token");
+    const sessionToken = sessionStorage.getItem("session_token");
 
     // Fetch user data if authenticated
     const fetchUserData = async () => {
       if (sessionToken) {
         try {
-          const userResponse = await axios.get(`${API_URI}/user`, {
+          const userResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/auth/profile`, {
             headers: {
               Authorization: `Bearer ${sessionToken}`,
             },
@@ -48,7 +47,7 @@ const AllProductsPage = () => {
     // Always fetch products, even without authentication
     const fetchProducts = async () => {
       try {
-        const productResponse = await axios.get(`${API_URI}/product`, {
+        const productResponse = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/products`, {
           headers: sessionToken
             ? {
               Authorization: `Bearer ${sessionToken}`,
@@ -100,7 +99,7 @@ const AllProductsPage = () => {
           {products.map((product) => (
             <div key={product.id} className='border rounded-lg overflow-hidden'>
               <img
-                src={`https://example.com/product/${product.id}/image`} // Placeholder for product image
+                src={`https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=200&width=300&text=Product`} // Placeholder for product image
                 alt={product.name}
                 className='w-full h-40 object-cover'
               />

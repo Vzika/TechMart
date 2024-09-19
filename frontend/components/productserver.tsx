@@ -1,8 +1,6 @@
 import { FC } from "react";
 import axios from "axios";
 
-const API_URI = `https://techmart-y7g6.onrender.com`;
-
 interface Product {
   id: number;
   name: string;
@@ -12,7 +10,7 @@ interface Product {
 const session_token = localStorage.getItem("session_token");
 
 const fetchUser = async () => {
-  const response = await axios.get(`${API_URI}/user`, {
+  const response = await axios.get(`${process.env.API_URI}/user`, {
     headers: {
       Authorization: `Bearer ${session_token}`,
     },
@@ -21,7 +19,7 @@ const fetchUser = async () => {
 };
 
 const fetchProducts = async () => {
-  const response = await axios.get(`${API_URI}/product`, {
+  const response = await axios.get(`${process.env.API_URI}/product`, {
     headers: {
       Authorization: `Bearer ${session_token}`,
     },

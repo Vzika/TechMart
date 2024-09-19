@@ -21,8 +21,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 
-// Simplified API URI for testing purposes
-const API_URI = `https://techmart-y7g6.onrender.com`;
 
 // Zod schema for form validation
 const schema = z.object({
@@ -63,14 +61,14 @@ export default function Login() {
 
       // Mock API call with axios
       const response = await axios.post(
-        `${API_URI}/login`,
+        `${process.env.NEXT_PUBLIC_API_URI}/auth/login`,
         {
           email: data.email,
           password: data.password,
         },
         { withCredentials: true },
       );
-      localStorage.setItem("session_token", response.data.session_token);
+      sessionStorage.setItem("session_token", response.data.access_token);
       console.log("Response:", response.data); // Log the response data
       console.log(response.status);
       if (response.status === 200) {

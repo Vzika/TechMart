@@ -22,8 +22,6 @@ import Loader from "@/components/ui/custom/loader";
 import { User } from "@/components/types";
 import { getUserData } from "@/lib/getUser";
 
-const API_URI = `https://techmart-y7g6.onrender.com`;
-
 const images = [
   "https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=400&width=600&text=Product Image 1",
   "https://g-ycrmd35tgas.vusercontent.net/placeholder.svg?height=400&width=600&text=Product Image 2",
@@ -52,10 +50,12 @@ const SingleProductPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${API_URI}/product/${product_id}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URI}/products/${product_id}`);
         setProduct(response.data);
+        console.log(product);
 
-        const token = localStorage.getItem("session_token");
+
+        const token = sessionStorage.getItem("session_token");
         if (token) {
           setIsLoggedIn(true);
         }
@@ -75,14 +75,14 @@ const SingleProductPage = () => {
       return;
     }
 
-    // const [currentUser, setCurrentUser] = useState<User | null>(null);
-    // useEffect(() => {
-    //   const fetchUser = async () => {
-    //     const userData: User = await getUserData();
-    //     setCurrentUser(userData);
-    //   };
-    //   fetchUser();
-    // }, []);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    useEffect(() => {
+      const fetchUser = async () => {
+        const userData: User = await getUserData();
+        setCurrentUser(userData);
+      };
+      fetchUser();
+    }, []);
     // const order = {
     //   customer_name: currentUser?.username || 'Guest',
     //   customer_email: currentUser?.email || 'guest@mail.com',
@@ -90,17 +90,15 @@ const SingleProductPage = () => {
     //   quantity,
     // };
     const order = {
-      customer_name: "John Doe",
-      customer_email: "john.doe@example.com",
+      user_id: currentUser?.id || 0,
       product_id: Number(product_id),
-      quantity,
     };
     console.log(order);
     try {
       setLoadingOrder(true);
-      const makeOrder = await axios.post(`${API_URI}/add_order`, order, {
+      const makeOrder = await axios.post(`${process.env.NEXT_PUBLIC_API_URI}/orders`, order, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("session_token")}`,
+          Authorization: `Bearer ${sessionStorage.getItem("session_token")}`,
         },
       });
       console.log(makeOrder);
