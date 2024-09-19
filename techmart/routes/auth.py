@@ -28,7 +28,7 @@ def register():
 @auth.route('/login', methods=['POST'])
 def login():
     data = request.get_json()
-    user = User.query.filter_by(username=data['username']).first()
+    user = User.query.filter_by(email=data['email']).first()
     if user and check_password_hash(user.password_hash, data['password']):
         access_token = create_access_token(identity=user.id)
         return jsonify(message="Login Successful", access_token=access_token), 200
