@@ -75,26 +75,26 @@ const SingleProductPage = () => {
       return;
     }
 
-    const [currentUser, setCurrentUser] = useState<User | null>(null);
-    useEffect(() => {
-      const fetchUser = async () => {
-        const userData: User = await getUserData();
-        setCurrentUser(userData);
-      };
-      fetchUser();
-    }, []);
-    const order = {
-      customer_name: currentUser?.username || 'Guest',
-      customer_email: currentUser?.email || 'guest@mail.com',
-      product_id: Number(product_id),
-      quantity,
-    };
+    // const [currentUser, setCurrentUser] = useState<User | null>(null);
+    // useEffect(() => {
+    //   const fetchUser = async () => {
+    //     const userData: User = await getUserData();
+    //     setCurrentUser(userData);
+    //   };
+    //   fetchUser();
+    // }, []);
     // const order = {
-    //   customer_name: "John Doe",
-    //   customer_email: "john.doe@example.com",
+    //   customer_name: currentUser?.username || 'Guest',
+    //   customer_email: currentUser?.email || 'guest@mail.com',
     //   product_id: Number(product_id),
     //   quantity,
     // };
+    const order = {
+      customer_name: "John Doe",
+      customer_email: "john.doe@example.com",
+      product_id: Number(product_id),
+      quantity,
+    };
     console.log(order);
     try {
       setLoadingOrder(true);
