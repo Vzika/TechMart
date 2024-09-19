@@ -84,11 +84,17 @@ const SingleProductPage = () => {
       fetchUser();
     }, []);
     const order = {
-      customer_name: currentUser?.username ?? 'Guest',  // Provide a fallback for when currentUser is null
-      customer_email: currentUser?.email ?? 'guest@example.com', // Optional chaining with fallback value
+      customer_name: currentUser?.username || 'Guest',
+      customer_email: currentUser?.email || 'guest@mail.com',
       product_id: Number(product_id),
       quantity,
     };
+    // const order = {
+    //   customer_name: "John Doe",
+    //   customer_email: "john.doe@example.com",
+    //   product_id: Number(product_id),
+    //   quantity,
+    // };
     console.log(order);
     try {
       setLoadingOrder(true);
