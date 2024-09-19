@@ -22,7 +22,7 @@ def create_app():
     # Register Routes
     register_routes(app)
 
-    @app.route('/', methods=['GET'])
+    @app.route('/', methods=['GET'], strict_slashes=False)
     def welcome():
         return jsonify({'message': 'Welcome to TechMart'})
 
