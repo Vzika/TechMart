@@ -1,5 +1,7 @@
 # Webstack - Portfolio Project
 
+# Webstack - Portfolio Project
+
 This project is a simple e-commerce platform that allows customers to browse products, place orders, leave comments, and manage their accounts. The API offers endpoints for product management, order placement, user authentication, and comment functionality.
 
 ## Table of Contents
